@@ -3,6 +3,7 @@ import { catchAsync } from "../../../helpers/catchAsync";
 import { LostItemService } from "./lostItem.service";
 import { Request, Response } from "express";
 import { sendResponse } from "../../../helpers/sendResponse";
+import { pick } from "../../../helpers/pick";
 
 const createIntoDB = catchAsync(
   async (req: Request & { user?: JwtPayload }, res: Response) => {
@@ -18,6 +19,21 @@ const createIntoDB = catchAsync(
     });
   }
 );
+
+const getAllLostItem = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, ["foundItemName", "searchTerm"]);
+  const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
+
+  const result = await LostItemService.getAllLostItem(filters, options);
+
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: "Lost items retrieved successfully",
+    meta: result.meta,
+    data: result.result,
+  });
+});
 
 const updateLostItemStatus = catchAsync(
   async (req: Request & { user?: JwtPayload }, res: Response) => {
@@ -37,5 +53,6 @@ const updateLostItemStatus = catchAsync(
 
 export const LostItemController = {
   createIntoDB,
+  getAllLostItem,
   updateLostItemStatus,
 };
