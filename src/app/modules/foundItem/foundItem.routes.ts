@@ -15,4 +15,8 @@ router.post(
   FoundItemController.createFoundItem
 );
 
+router.patch("/found-items/:id", FoundItemController.updateFoundItem);
+
+router.delete("/found-items/:id", FoundItemController.deleteFoundItem);
+
 export const FoundItemRoute = router;

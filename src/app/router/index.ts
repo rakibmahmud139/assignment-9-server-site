@@ -4,6 +4,7 @@ import { FoundItemCategoryRoute } from "../modules/foundItemCategory/foundItemCa
 import { FoundItemRoute } from "../modules/foundItem/foundItem.routes";
 import { ClaimRoute } from "../modules/claim/claim.routes";
 import { UserProfileRoute } from "../modules/userProfile/userProfile.routes";
+import { LostItemRoute } from "../modules/lostItem/lostItem.routes";
 
 const router = express.Router();
 
@@ -15,6 +16,10 @@ const modulesRoute = [
   {
     path: "/",
     router: FoundItemCategoryRoute,
+  },
+  {
+    path: "/",
+    router: LostItemRoute,
   },
   {
     path: "/",

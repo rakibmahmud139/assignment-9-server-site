@@ -40,9 +40,9 @@ model LostItem {
     user          User              @relation(fields: [userId], references: [id])
     categoryId    String
     category      FoundItemCategory @relation(fields: [categoryId], references: [id])
-    foundItemName String
+    lostItemName  String
     description   String
-    location      String
+    location      String?
     isFound       String?
     contactNumber String?
     photo         String?
@@ -60,7 +60,7 @@ model FoundItem {
     category      FoundItemCategory @relation(fields: [categoryId], references: [id])
     foundItemName String
     description   String
-    location      String
+    location      String?
     contactNumber String?
     photo         String?
     createdAt     DateTime          @default(now())

@@ -63,6 +63,7 @@ const userLogin = async (payload: { email: string; password: string }) => {
   const userPayload = {
     name: user.name,
     email: user.email,
+    role: user.role,
   };
 
   const token = createToken(

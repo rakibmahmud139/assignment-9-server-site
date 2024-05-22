@@ -115,7 +115,42 @@ const getAllFoundItem = async (
   return { result, meta };
 };
 
+const updateFoundItem = async (id: string, payload: Partial<FoundItem>) => {
+  await prisma.foundItem.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+
+  const result = await prisma.foundItem.update({
+    where: {
+      id,
+    },
+    data: payload,
+  });
+
+  return result;
+};
+
+const deleteFoundItem = async (id: string) => {
+  await prisma.foundItem.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+
+  const result = await prisma.foundItem.delete({
+    where: {
+      id,
+    },
+  });
+
+  return result;
+};
+
 export const FoundItemService = {
   createFoundItem,
   getAllFoundItem,
+  updateFoundItem,
+  deleteFoundItem,
 };

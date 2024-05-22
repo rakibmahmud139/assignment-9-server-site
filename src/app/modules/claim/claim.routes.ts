@@ -3,6 +3,7 @@ import { auth } from "../../middleware/auth";
 import { ClaimController } from "./claim.controller";
 import { validateRequest } from "../../middleware/validateRequest";
 import { ClaimValidationSchemas } from "./claim.valdation";
+import { userRole } from "@prisma/client";
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ router.get("/claims", auth(), ClaimController.getAllClaimItem);
 
 router.post(
   "/claims",
-  auth(),
+  auth(userRole.user),
   validateRequest(ClaimValidationSchemas.createClaimValidationSchema),
   ClaimController.createClaim
 );

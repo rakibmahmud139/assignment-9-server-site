@@ -35,7 +35,35 @@ const getAllFoundItem = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateFoundItem = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await FoundItemService.updateFoundItem(id, req.body);
+
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: "Found item updated successfully",
+    data: result,
+  });
+});
+
+const deleteFoundItem = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await FoundItemService.deleteFoundItem(id);
+
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: "Found item deleted successfully",
+    data: result,
+  });
+});
+
 export const FoundItemController = {
   createFoundItem,
   getAllFoundItem,
+  updateFoundItem,
+  deleteFoundItem,
 };
