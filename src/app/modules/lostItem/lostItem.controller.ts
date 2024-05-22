@@ -21,7 +21,7 @@ const createIntoDB = catchAsync(
 );
 
 const getAllLostItem = catchAsync(async (req: Request, res: Response) => {
-  const filters = pick(req.query, ["foundItemName", "searchTerm"]);
+  const filters = pick(req.query, ["lostItemName", "searchTerm"]);
   const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
 
   const result = await LostItemService.getAllLostItem(filters, options);

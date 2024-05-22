@@ -20,7 +20,7 @@ const createClaim = catchAsync(
 );
 
 const getAllClaimItem = catchAsync(async (req: Request, res: Response) => {
-  const result = await ClaimServices.getAllClaimItem();
+  const result = await ClaimServices.getAllClaimItem(req.query);
 
   sendResponse(res, {
     statusCode: 200,

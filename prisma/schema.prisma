@@ -48,7 +48,6 @@ model LostItem {
     photo         String?
     createdAt     DateTime          @default(now())
     updatedAt     DateTime          @updatedAt
-    Claim         Claim[]
 
     @@map("lostItems")
 }
@@ -75,7 +74,6 @@ model Claim {
     id                     String      @id @default(uuid())
     userId                 String
     foundItemId            String
-    lostItemId             String
     status                 claimStatus @default(PENDING)
     distinguishingFeatures String
     lostDate               DateTime
@@ -84,7 +82,6 @@ model Claim {
 
     user      User      @relation(fields: [userId], references: [id])
     foundItem FoundItem @relation(fields: [foundItemId], references: [id])
-    lostItem  LostItem  @relation(fields: [lostItemId], references: [id])
 
     @@map("claims")
 }

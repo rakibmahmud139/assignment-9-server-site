@@ -7,7 +7,7 @@ import { userRole } from "@prisma/client";
 
 const router = express.Router();
 
-router.get("/claims", auth(), ClaimController.getAllClaimItem);
+router.get("/claims", auth(userRole.user), ClaimController.getAllClaimItem);
 
 router.post(
   "/claims",
@@ -16,6 +16,10 @@ router.post(
   ClaimController.createClaim
 );
 
-router.put("/claims/:claimId", auth(), ClaimController.updateClaimStatus);
+router.put(
+  "/claims/:claimId",
+  auth(userRole.admin),
+  ClaimController.updateClaimStatus
+);
 
 export const ClaimRoute = router;

@@ -5,6 +5,7 @@ import { FoundItemRoute } from "../modules/foundItem/foundItem.routes";
 import { ClaimRoute } from "../modules/claim/claim.routes";
 import { UserProfileRoute } from "../modules/userProfile/userProfile.routes";
 import { LostItemRoute } from "../modules/lostItem/lostItem.routes";
+import { MetaRoute } from "../modules/meta/meta.routes";
 
 const router = express.Router();
 
@@ -32,6 +33,10 @@ const modulesRoute = [
   {
     path: "/",
     router: UserProfileRoute,
+  },
+  {
+    path: "/",
+    router: MetaRoute,
   },
 ];
 
