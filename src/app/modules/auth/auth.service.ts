@@ -3,12 +3,14 @@ import config from "../../../config";
 import { createToken } from "../../../helpers/jwtHelpers";
 import { prisma } from "../../../helpers/prisma";
 import { UserData } from "./auth.constant";
+import { userRole } from "@prisma/client";
 
 const registerUser = async (payload: UserData) => {
   const hashedPassword = await bcrypt.hash(payload.password, 12);
   const userData = {
     name: payload.name,
     email: payload.email,
+    role: payload?.role as userRole,
     password: hashedPassword,
     userProfile: {
       create: { bio: payload.profile.bio, age: payload.profile.age },
