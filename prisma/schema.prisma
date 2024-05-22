@@ -95,6 +95,7 @@ model UserProfile {
     id        String   @id @default(uuid())
     userId    String   @unique
     bio       String
+    photoUrl  String?
     age       Int
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
