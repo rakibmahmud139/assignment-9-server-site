@@ -9,13 +9,13 @@ const router = express.Router();
 
 router.get(
   "/lost-items",
-  auth(userRole.user),
+  // auth(userRole.user),
   LostItemController.getAllLostItem
 );
 
 router.get(
   "/lost-items/:id",
-  auth(userRole.user),
+  // auth(userRole.user),
   LostItemController.getSingleLostItem
 );
 

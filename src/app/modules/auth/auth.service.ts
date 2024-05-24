@@ -42,6 +42,7 @@ const registerUser = async (payload: UserData) => {
       userId: result.user.userProfile?.userId,
       bio: result.user.userProfile?.bio,
       age: result.user.userProfile?.age,
+      photoUrl: result.user.userProfile?.photoUrl,
       createdAt: result.user.userProfile?.createdAt,
       updatedAt: result.user.userProfile?.updatedAt,
     },
@@ -54,6 +55,9 @@ const userLogin = async (payload: { email: string; password: string }) => {
   const user = await prisma.user.findFirstOrThrow({
     where: {
       email: payload.email,
+    },
+    include: {
+      userProfile: true,
     },
   });
 
@@ -70,6 +74,7 @@ const userLogin = async (payload: { email: string; password: string }) => {
     name: user.name,
     email: user.email,
     role: user.role,
+    photoUrl: user?.userProfile?.photoUrl,
   };
 
   const token = createToken(
