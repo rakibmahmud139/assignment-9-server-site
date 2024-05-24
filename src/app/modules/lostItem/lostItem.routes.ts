@@ -13,6 +13,12 @@ router.get(
   LostItemController.getAllLostItem
 );
 
+router.get(
+  "/lost-items/:id",
+  auth(userRole.user),
+  LostItemController.getSingleLostItem
+);
+
 router.post(
   "/lost-items",
   auth(userRole.user),

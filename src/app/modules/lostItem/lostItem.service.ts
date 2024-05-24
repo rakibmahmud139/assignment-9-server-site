@@ -1,8 +1,8 @@
 import { LostItem, Prisma } from "@prisma/client";
 import { JwtPayload } from "jsonwebtoken";
+import { calculatePagination } from "../../../helpers/calculatePagination";
 import { prisma } from "../../../helpers/prisma";
 import { TPaginationOptions } from "../../interfaces/pagination";
-import { calculatePagination } from "../../../helpers/calculatePagination";
 import { lostItemSearchAbleFields } from "./lostItem.constant";
 
 const createIntoDB = async (user: JwtPayload, payload: LostItem) => {
@@ -36,7 +36,7 @@ const createIntoDB = async (user: JwtPayload, payload: LostItem) => {
       category: true,
     },
   });
-
+  console.log(result);
   return result;
 };
 
@@ -95,6 +95,7 @@ const getAllLostItem = async (
           password: false,
           createdAt: true,
           updatedAt: true,
+          userProfile: true,
         },
       },
       category: true,
@@ -112,6 +113,22 @@ const getAllLostItem = async (
   };
 
   return { result, meta };
+};
+
+const getSingleLostItem = async (user: JwtPayload, id: string) => {
+  await prisma.user.findFirstOrThrow({
+    where: {
+      email: user.email,
+    },
+  });
+
+  const result = await prisma.lostItem.findFirstOrThrow({
+    where: {
+      id,
+    },
+  });
+
+  return result;
 };
 
 const updateLostItemStatus = async (user: JwtPayload, id: string) => {
@@ -143,4 +160,5 @@ export const LostItemService = {
   createIntoDB,
   updateLostItemStatus,
   getAllLostItem,
+  getSingleLostItem,
 };

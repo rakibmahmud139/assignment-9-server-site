@@ -3,5 +3,5 @@ export type UserData = {
   name: string;
   role?: string;
   email: string;
-  profile: { bio: string; age: number };
+  profile: { bio: string; age: number; photoUrl?: string };
 };

@@ -13,7 +13,11 @@ const registerUser = async (payload: UserData) => {
     role: payload?.role as userRole,
     password: hashedPassword,
     userProfile: {
-      create: { bio: payload.profile.bio, age: payload.profile.age },
+      create: {
+        bio: payload.profile.bio,
+        age: payload.profile.age,
+        photoUrl: payload?.profile?.photoUrl,
+      },
     },
   };
 

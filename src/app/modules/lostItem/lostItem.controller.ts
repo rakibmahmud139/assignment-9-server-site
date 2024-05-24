@@ -35,6 +35,22 @@ const getAllLostItem = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getSingleLostItem = catchAsync(
+  async (req: Request & { user?: JwtPayload }, res: Response) => {
+    const user = req.user as JwtPayload;
+    const { id } = req.params;
+
+    const result = await LostItemService.getSingleLostItem(user, id);
+
+    sendResponse(res, {
+      statusCode: 201,
+      success: true,
+      message: "Get single lost items retrieved successfully",
+      data: result,
+    });
+  }
+);
+
 const updateLostItemStatus = catchAsync(
   async (req: Request & { user?: JwtPayload }, res: Response) => {
     const user = req.user as JwtPayload;
@@ -55,4 +71,5 @@ export const LostItemController = {
   createIntoDB,
   getAllLostItem,
   updateLostItemStatus,
+  getSingleLostItem,
 };
