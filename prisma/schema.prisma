@@ -44,7 +44,7 @@ model LostItem {
     lostItemName  String
     description   String
     location      String?
-    isFound       String?
+    found         Boolean           @default(false)
     contactNumber String?
     photo         String?
     createdAt     DateTime          @default(now())

@@ -149,7 +149,7 @@ const updateLostItemStatus = async (user: JwtPayload, id: string) => {
       id,
     },
     data: {
-      isFound: "found",
+      found: true,
     },
   });
 

@@ -15,7 +15,7 @@ router.get(
 
 router.get(
   "/lost-items/:id",
-  // auth(userRole.user),
+  auth(userRole.user),
   LostItemController.getSingleLostItem
 );
 

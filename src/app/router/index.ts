@@ -7,6 +7,7 @@ import { UserProfileRoute } from "../modules/userProfile/userProfile.routes";
 import { LostItemRoute } from "../modules/lostItem/lostItem.routes";
 import { MetaRoute } from "../modules/meta/meta.routes";
 import { ReviewRoute } from "../modules/review/review.routes";
+import { UserRoutes } from "../modules/userManagement/user.routes";
 
 const router = express.Router();
 
@@ -42,6 +43,10 @@ const modulesRoute = [
   {
     path: "/",
     router: MetaRoute,
+  },
+  {
+    path: "/",
+    router: UserRoutes,
   },
 ];
 
