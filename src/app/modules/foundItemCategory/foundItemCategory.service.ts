@@ -18,6 +18,19 @@ const createFoundItemCategory = async (
   return result;
 };
 
+const getCategory = async (user: JwtPayload) => {
+  await prisma.user.findFirstOrThrow({
+    where: {
+      email: user?.email,
+    },
+  });
+
+  const result = await prisma.foundItemCategory.findMany();
+
+  return result;
+};
+
 export const FoundItemCategoryService = {
   createFoundItemCategory,
+  getCategory,
 };

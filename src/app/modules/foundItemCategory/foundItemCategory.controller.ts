@@ -22,6 +22,22 @@ const createFoundItemCategory = catchAsync(
   }
 );
 
+const getCategory = catchAsync(
+  async (req: Request & { user?: JwtPayload }, res: Response) => {
+    const user = req.user as JwtPayload;
+
+    const result = await FoundItemCategoryService.getCategory(user);
+
+    sendResponse(res, {
+      statusCode: 201,
+      success: true,
+      message: "Category retrieved successfully",
+      data: result,
+    });
+  }
+);
+
 export const FoundItemCategoryController = {
   createFoundItemCategory,
+  getCategory,
 };
