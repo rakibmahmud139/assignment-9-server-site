@@ -5,12 +5,12 @@ import { ReviewController } from "./review.controller";
 
 const router = express.Router();
 
-router.get(
-  "/review",
-  //  auth(userRole.user),
-  ReviewController.getAllFromDB
-);
+router.get("/review", ReviewController.getAllFromDB);
 
-router.post("/review", auth(userRole.user), ReviewController.createIntoDB);
+router.post(
+  "/review",
+  auth(userRole.user, userRole.admin),
+  ReviewController.createIntoDB
+);
 
 export const ReviewRoute = router;

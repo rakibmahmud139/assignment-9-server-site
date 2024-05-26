@@ -9,19 +9,15 @@ const router = express.Router();
 
 router.get(
   "/lost-items",
-  // auth(userRole.user),
+  auth(userRole.user, userRole.admin),
   LostItemController.getAllLostItem
 );
 
-router.get(
-  "/lost-items/:id",
-  auth(userRole.user),
-  LostItemController.getSingleLostItem
-);
+router.get("/lost-items/:id", LostItemController.getSingleLostItem);
 
 router.post(
   "/lost-items",
-  auth(userRole.user),
+  auth(userRole.user, userRole.admin),
   validateRequest(LostItemValidationSchemas.createLostItemValidationSchema),
   LostItemController.createIntoDB
 );

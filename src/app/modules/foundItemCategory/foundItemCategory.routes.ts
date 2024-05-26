@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get(
   "/found-item-categories",
-  // auth(userRole.user),
+  auth(userRole.user, userRole.admin),
   FoundItemCategoryController.getCategory
 );
 
