@@ -44,13 +44,15 @@ const getAllLostItem = async (
   query: {
     searchTerm?: string | undefined;
     lostItemName?: string | undefined;
+    email?: string | undefined;
   },
   options: TPaginationOptions
 ) => {
-  const { searchTerm, ...filteredData } = query;
+  const { searchTerm, email, ...filteredData } = query;
   let addCondition: Prisma.LostItemWhereInput[] = [];
-
   const { page, limit, skip } = calculatePagination(options);
+
+  console.log(email);
 
   if (query.searchTerm) {
     addCondition.push({
@@ -75,7 +77,13 @@ const getAllLostItem = async (
 
   const whereCondition = { AND: addCondition };
   const result = await prisma.lostItem.findMany({
-    where: whereCondition,
+    where: email
+      ? {
+          user: {
+            email: email,
+          },
+        }
+      : whereCondition,
     skip,
     take: limit,
     orderBy:

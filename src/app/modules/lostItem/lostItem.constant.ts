@@ -1,5 +1,6 @@
 export const lostItemSearchAbleFields = [
-  "foundItemName",
+  "lostItemName",
   "location",
   "description",
+  "email",
 ];

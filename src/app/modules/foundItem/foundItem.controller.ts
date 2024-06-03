@@ -21,7 +21,13 @@ const createFoundItem = catchAsync(
 );
 
 const getAllFoundItem = catchAsync(async (req: Request, res: Response) => {
-  const filters = pick(req.query, ["foundItemName", "searchTerm"]);
+  const filters = pick(req.query, [
+    "foundItemName",
+    "category",
+    "location",
+    "searchTerm",
+    "email",
+  ]);
   const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
 
   const result = await FoundItemService.getAllFoundItem(filters, options);

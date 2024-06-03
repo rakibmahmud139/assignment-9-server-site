@@ -44,10 +44,11 @@ const getAllFoundItem = async (
   query: {
     searchTerm?: string | undefined;
     foundItemName?: string | undefined;
+    email?: string | undefined;
   },
   options: TPaginationOptions
 ) => {
-  const { searchTerm, ...filteredData } = query;
+  const { searchTerm, email, ...filteredData } = query;
   let addCondition: Prisma.FoundItemWhereInput[] = [];
 
   const { page, limit, skip } = calculatePagination(options);
@@ -74,9 +75,14 @@ const getAllFoundItem = async (
   }
 
   const whereCondition = { AND: addCondition };
-  console.log(query);
   const result = await prisma.foundItem.findMany({
-    where: whereCondition,
+    where: email
+      ? {
+          user: {
+            email: email,
+          },
+        }
+      : whereCondition,
     skip,
     take: limit,
     orderBy:
