@@ -139,6 +139,39 @@ const getSingleLostItem = async (user: JwtPayload, id: string) => {
   return result;
 };
 
+const updateLostItem = async (id: string, payload: Partial<LostItem>) => {
+  await prisma.lostItem.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+
+  const result = await prisma.lostItem.update({
+    where: {
+      id,
+    },
+    data: payload,
+  });
+
+  return result;
+};
+
+const deleteLostItem = async (id: string) => {
+  await prisma.lostItem.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+
+  const result = await prisma.lostItem.delete({
+    where: {
+      id,
+    },
+  });
+
+  return result;
+};
+
 const updateLostItemStatus = async (user: JwtPayload, id: string) => {
   await prisma.user.findFirstOrThrow({
     where: {
@@ -169,4 +202,6 @@ export const LostItemService = {
   updateLostItemStatus,
   getAllLostItem,
   getSingleLostItem,
+  deleteLostItem,
+  updateLostItem,
 };

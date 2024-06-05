@@ -22,6 +22,10 @@ router.post(
   LostItemController.createIntoDB
 );
 
+router.patch("/lost-items/:id", LostItemController.updateLostItem);
+
+router.delete("/lost-items/:id", LostItemController.deleteLostItem);
+
 router.patch(
   "/lost-items/:id",
   auth(userRole.admin, userRole.user),

@@ -57,6 +57,32 @@ const getSingleLostItem = catchAsync(
   }
 );
 
+const updateLostItem = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await LostItemService.updateLostItem(id, req.body);
+
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: "Lost item updated successfully",
+    data: result,
+  });
+});
+
+const deleteLostItem = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await LostItemService.deleteLostItem(id);
+
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: "Lost item deleted successfully",
+    data: result,
+  });
+});
+
 const updateLostItemStatus = catchAsync(
   async (req: Request & { user?: JwtPayload }, res: Response) => {
     const user = req.user as JwtPayload;
@@ -78,4 +104,6 @@ export const LostItemController = {
   getAllLostItem,
   updateLostItemStatus,
   getSingleLostItem,
+  updateLostItem,
+  deleteLostItem,
 };
