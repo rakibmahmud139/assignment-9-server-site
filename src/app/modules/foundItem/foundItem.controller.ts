@@ -41,6 +41,22 @@ const getAllFoundItem = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getSingleFoundItem = catchAsync(
+  async (req: Request & { user?: JwtPayload }, res: Response) => {
+    const user = req.user as JwtPayload;
+    const { id } = req.params;
+
+    const result = await FoundItemService.getSingleFoundItem(user, id);
+
+    sendResponse(res, {
+      statusCode: 201,
+      success: true,
+      message: "Get single Found items retrieved successfully",
+      data: result,
+    });
+  }
+);
+
 const updateFoundItem = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -72,4 +88,5 @@ export const FoundItemController = {
   getAllFoundItem,
   updateFoundItem,
   deleteFoundItem,
+  getSingleFoundItem,
 };

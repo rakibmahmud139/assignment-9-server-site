@@ -121,6 +121,22 @@ const getAllFoundItem = async (
   return { result, meta };
 };
 
+const getSingleFoundItem = async (user: JwtPayload, id: string) => {
+  await prisma.user.findFirstOrThrow({
+    where: {
+      email: user.email,
+    },
+  });
+
+  const result = await prisma.foundItem.findFirstOrThrow({
+    where: {
+      id,
+    },
+  });
+
+  return result;
+};
+
 const updateFoundItem = async (id: string, payload: Partial<FoundItem>) => {
   await prisma.foundItem.findUniqueOrThrow({
     where: {
@@ -139,16 +155,26 @@ const updateFoundItem = async (id: string, payload: Partial<FoundItem>) => {
 };
 
 const deleteFoundItem = async (id: string) => {
-  await prisma.foundItem.findUniqueOrThrow({
+  const foundItemInfo = await prisma.foundItem.findUniqueOrThrow({
     where: {
       id,
     },
   });
 
-  const result = await prisma.foundItem.delete({
-    where: {
-      id,
-    },
+  const result = await prisma.$transaction(async (tx) => {
+    await tx.review.delete({
+      where: {
+        foundItemId: foundItemInfo.id,
+      },
+    });
+
+    const deleteFoundItem = await tx.foundItem.delete({
+      where: {
+        id,
+      },
+    });
+
+    return deleteFoundItem;
   });
 
   return result;
@@ -159,4 +185,5 @@ export const FoundItemService = {
   getAllFoundItem,
   updateFoundItem,
   deleteFoundItem,
+  getSingleFoundItem,
 };

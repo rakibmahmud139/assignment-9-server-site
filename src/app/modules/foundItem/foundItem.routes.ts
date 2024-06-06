@@ -13,6 +13,12 @@ router.get(
   FoundItemController.getAllFoundItem
 );
 
+router.get(
+  "/found-items/:id",
+  auth(userRole.user, userRole.admin),
+  FoundItemController.getSingleFoundItem
+);
+
 router.post(
   "/found-items",
   auth(userRole.user, userRole.admin),
