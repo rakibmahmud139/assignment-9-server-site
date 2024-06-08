@@ -20,7 +20,7 @@ router.post(
   ClaimController.createClaim
 );
 
-router.put(
+router.patch(
   "/claims/:claimId",
   auth(userRole.user, userRole.admin),
   ClaimController.updateClaimStatus

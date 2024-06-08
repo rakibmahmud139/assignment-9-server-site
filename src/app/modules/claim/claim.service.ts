@@ -55,19 +55,20 @@ const getAllClaimItem = async (query: Record<string, any>) => {
 };
 
 const updateClaimStatus = async (
-  claimId: string,
+  id: string,
   payload: { status: claimStatus }
 ) => {
-  await prisma.claim.findUniqueOrThrow({
+  const claim = await prisma.claim.findFirstOrThrow({
     where: {
-      id: claimId,
+      foundItemId: id,
     },
   });
 
   const result = await prisma.claim.update({
     where: {
-      id: claimId,
+      id: claim.id,
     },
+
     data: {
       status: payload.status,
     },

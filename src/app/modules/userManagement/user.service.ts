@@ -14,6 +14,26 @@ const getAllUser = async (user: JwtPayload) => {
     where: {
       role: userRole.user,
     },
+    include: {
+      userProfile: true,
+    },
+  });
+
+  return result;
+};
+
+const getSingleUser = async (user: JwtPayload, id: string) => {
+  await prisma.user.findFirstOrThrow({
+    where: {
+      email: user.email,
+      role: userRole.admin,
+    },
+  });
+
+  const result = await prisma.user.findFirstOrThrow({
+    where: {
+      id: id,
+    },
   });
 
   return result;
@@ -72,4 +92,5 @@ export const UserServices = {
   getAllUser,
   updateUser,
   deleteUser,
+  getSingleUser,
 };

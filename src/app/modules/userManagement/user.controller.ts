@@ -19,6 +19,22 @@ const getAllUser = catchAsync(
   }
 );
 
+const getSingleUser = catchAsync(
+  async (req: Request & { user?: JwtPayload }, res: Response) => {
+    const user = req.user as JwtPayload;
+    const { id } = req.params;
+
+    const result = await UserServices.getSingleUser(user, id);
+
+    sendResponse(res, {
+      statusCode: 201,
+      success: true,
+      message: "user retrieved successfully",
+      data: result,
+    });
+  }
+);
+
 const updateUser = catchAsync(
   async (req: Request & { user?: JwtPayload }, res: Response) => {
     const user = req.user as JwtPayload;
@@ -55,4 +71,5 @@ export const UserControllers = {
   getAllUser,
   updateUser,
   deleteUser,
+  getSingleUser,
 };
