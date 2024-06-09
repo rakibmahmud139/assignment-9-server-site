@@ -6,7 +6,6 @@ const getAllUser = async (user: JwtPayload) => {
   await prisma.user.findFirstOrThrow({
     where: {
       email: user.email,
-      role: userRole.admin,
     },
   });
 
