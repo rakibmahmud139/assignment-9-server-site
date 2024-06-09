@@ -80,7 +80,7 @@ const getAllLostItem = async (
     where: email
       ? {
           user: {
-            email: email,
+            email,
           },
         }
       : whereCondition,
