@@ -134,6 +134,7 @@ const getSingleLostItem = async (user: JwtPayload, id: string) => {
     where: {
       id,
     },
+    include: { user: true, category: true },
   });
 
   return result;
