@@ -10,12 +10,14 @@ const getDashboardMetaData = async () => {
     },
   });
 
-  return {
-    totalClaimItems,
-    totalLostItems,
-    totalFoundItems,
-    totalUsers,
-  };
+  return [
+    {
+      totalClaimItems,
+      totalLostItems,
+      totalFoundItems,
+      totalUsers,
+    },
+  ];
 };
 
 export const MetaServices = { getDashboardMetaData };

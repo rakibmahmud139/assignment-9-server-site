@@ -3,7 +3,7 @@ import { prisma } from "../../../helpers/prisma";
 
 const createFoundItemCategory = async (
   user: JwtPayload,
-  payload: { name: string }
+  payload: { name: string; image: string }
 ) => {
   await prisma.user.findFirstOrThrow({
     where: {
