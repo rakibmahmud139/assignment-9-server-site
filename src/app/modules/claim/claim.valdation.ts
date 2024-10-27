@@ -3,7 +3,7 @@ import { z } from "zod";
 
 const createClaimValidationSchema = z.object({
   body: z.object({
-    foundItemId: z.string({ required_error: "Found item is required" }),
+    foundItemId: z.string().optional(),
     distinguishingFeatures: z.string({
       required_error: "Required item is required",
     }),
