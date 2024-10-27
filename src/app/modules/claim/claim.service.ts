@@ -12,12 +12,6 @@ const createClaim = async (user: JwtPayload, payload: Claim) => {
 
   payload.userId = userData.id;
 
-  await prisma.foundItem.findUniqueOrThrow({
-    where: {
-      id: payload.foundItemId,
-    },
-  });
-
   const result = await prisma.claim.create({
     data: payload,
   });
