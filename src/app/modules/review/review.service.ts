@@ -11,9 +11,12 @@ const createIntoDB = async (userInfo: JwtPayload, payload: Review) => {
 
   payload.userId = userData?.id;
 
+  console.log(payload);
+
   const result = await prisma.review.create({
     data: payload,
   });
+  console.log(result);
 
   return result;
 };
